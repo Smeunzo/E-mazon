@@ -18,11 +18,12 @@ public class CustomerApplication {
 	@Bean
 	CommandLineRunner start(CustomerRepository cr){
 		return args -> {
+
 			Customer c = new Customer();
 			c.setFirstName("Abdelhakim");
 			c.setLastName("BELHACHEMI");
-
 			cr.save(c);
+
 		};
 	}
 }
