@@ -4,17 +4,21 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: customer-service
-          uri: http://localhost:8081/
+        - id: r1
+          uri: lb://CUSTOMER-SERVICE
           predicates:
             - Path= /customers/**
 
-        - id: inventory-service
-          uri: http://localhost:8082/
+        - id: r2
+          uri: lb://INVENTORY-SERVICE
           predicates:
-            - Path= /products/**
+            - Path= /inventories/**
 
     discovery:
-      enabled: false
+      enabled: true
 server:
   port: 8888
+eureka:
+  client:
+    service-url:
+      - defaultZone= http://localhost:8761/eureka
