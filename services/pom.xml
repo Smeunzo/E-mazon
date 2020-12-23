@@ -19,6 +19,7 @@
         <module>customer</module>
         <module>gateway</module>
         <module>eureka</module>
+        <module>inventory</module>
     </modules>
 
     <properties>
