@@ -5,11 +5,11 @@
 	<parent>
 		<groupId>com.emazon.services</groupId>
 		<artifactId>services</artifactId>
-		<version>0.0</version>
+		<version>0.1</version>
 	</parent>
 	<groupId>com.emazon.services.customer</groupId>
 	<artifactId>customer</artifactId>
-	<version>0.0</version>
+	<version>0.1</version>
 	<name>customer</name>
 	<description>Customer Service</description>
 	<packaging>jar</packaging>

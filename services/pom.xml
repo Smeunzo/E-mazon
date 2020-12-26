@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.emazon</groupId>
         <artifactId>emazon</artifactId>
-        <version>0.0</version>
+        <version>0.1</version>
     </parent>
 
     <groupId>com.emazon.services</groupId>
     <artifactId>services</artifactId>
-    <version>0.0</version>
+    <version>0.1</version>
     <name>services</name>
     <description>Module services</description>
     <packaging>pom</packaging>

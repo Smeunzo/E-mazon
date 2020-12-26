@@ -5,11 +5,11 @@
 	<parent>
 		<artifactId>services</artifactId>
 		<groupId>com.emazon.services</groupId>
-		<version>0.0</version>
+		<version>0.1</version>
 	</parent>
 	<groupId>com.emazon.services.inventory</groupId>
 	<artifactId>inventory</artifactId>
-	<version>0.0</version>
+	<version>0.1</version>
 	<name>inventory</name>
 	<description>Iventory service</description>
 

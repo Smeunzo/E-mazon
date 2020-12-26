@@ -5,11 +5,11 @@
 	<parent>
 		<artifactId>services</artifactId>
 		<groupId>com.emazon.services</groupId>
-		<version>0.0</version>
+		<version>0.1</version>
 	</parent>
 	<groupId>com.emazon.services.config</groupId>
 	<artifactId>config</artifactId>
-	<version>0.0</version>
+	<version>0.1</version>
 	<name>config</name>
 	<description>Configuration</description>
 
