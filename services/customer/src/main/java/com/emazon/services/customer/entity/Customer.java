@@ -1,46 +1,19 @@
 package com.emazon.services.customer.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
-import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@ToString
+@NoArgsConstructor @AllArgsConstructor @Data @ToString
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Size(min = 3, max = 20)
-    @NotBlank
     private String firstName;
-
-    @Size(max = 20)
-    private String middleName;
-
-    @Size(min = 3, max = 20)
-    @NotBlank
     private String lastName;
-
-    @Email
-    @NotBlank
-    private String email;
-
-    @Past
-    @NotNull
-    private LocalDate birthdate;
-
-    @OneToOne
-    @NotNull
-    private Address address;
-
 }
