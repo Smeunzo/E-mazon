@@ -20,6 +20,9 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    private String customerId;
+
     @Size(min = 3, max = 20)
     @NotBlank
     private String firstName;
@@ -40,7 +43,6 @@ public class Customer {
     private LocalDate birthdate;
 
     @OneToOne
-    @NotNull
     private Address address;
 
 }
