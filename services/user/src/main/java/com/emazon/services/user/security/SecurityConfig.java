@@ -25,6 +25,7 @@ import java.util.Collection;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private UserService userService ;
 
@@ -45,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable(); // to enable stateless authentication
+        http.csrf().disable(); // enable stateless authentication
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().frameOptions().disable();//inactive frame security
         http.authorizeRequests().antMatchers("/h2-console/**").permitAll();//enable access to h2 without authentication

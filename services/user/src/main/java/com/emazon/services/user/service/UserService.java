@@ -3,6 +3,8 @@ import com.emazon.services.user.dao.RoleRepository;
 import com.emazon.services.user.dao.UserRepository;
 import com.emazon.services.user.entity.Role;
 import com.emazon.services.user.entity.UserCredentials;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,12 +21,13 @@ public class UserService implements UserServicesInterface{
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder ;
 
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder ;
     }
 
     @Override
@@ -58,6 +61,8 @@ public class UserService implements UserServicesInterface{
         Role role = loadRoleByName(rolesName);
         userCredentials.getRolesOfUser().add(role);
     }
+
+
 
 
 }

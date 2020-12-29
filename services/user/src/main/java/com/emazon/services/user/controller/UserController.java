@@ -1,17 +1,12 @@
 package com.emazon.services.user.controller;
 
-
 import com.emazon.services.user.entity.Role;
 import com.emazon.services.user.entity.UserCredentials;
-
-
 import com.emazon.services.user.entity.UsernameAndRolesName;
-import com.emazon.services.user.security.SecurityConfig;
 import com.emazon.services.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
-
 
 @RestController
 @AllArgsConstructor
@@ -35,7 +30,7 @@ class UserController {
         return userService.addNewRole(role);
     }
 
-    @PostMapping(path = "addRoleToUser")
+    @PostMapping(path = "/addRoleToUser")
     public void addRoleToUser(@RequestBody UsernameAndRolesName usernameAndRolesName){
         userService.addRoleToUserByUsername(usernameAndRolesName.getUsername(),usernameAndRolesName.getRolesname());
     }
