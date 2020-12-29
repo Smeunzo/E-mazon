@@ -4,10 +4,7 @@ import com.emazon.services.customer.dao.AddressRepository;
 import com.emazon.services.customer.dao.CustomerRepository;
 import com.emazon.services.customer.entity.Address;
 import com.emazon.services.customer.entity.Customer;
-import com.emazon.services.customer.service.CustomerService;
 import com.emazon.services.customer.utils.UUIDGenerator;
-import org.bouncycastle.util.encoders.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +12,6 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.UUID;
 
 @SpringBootApplication
 public class CustomerApplication {
