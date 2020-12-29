@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.emazon.services.customer</groupId>
 	<artifactId>customer</artifactId>
-	<version>0.1</version>
+	<version>0.7</version>
 	<name>customer</name>
 	<description>Customer Service</description>
 	<packaging>jar</packaging>
