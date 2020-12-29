@@ -42,7 +42,9 @@ public class UserService implements UserServicesInterface{
     }
 
     public Role loadRoleByName(String rolesName){
-        return roleRepository.findRoleCredentialsByRolesName(rolesName);
+        Role role = roleRepository.findRoleCredentialsByRolesName(rolesName);
+        System.out.println(role);
+        return role ;
 
     }
 
@@ -59,7 +61,9 @@ public class UserService implements UserServicesInterface{
     public void addRoleToUserByUsername(String username, String rolesName){
         UserCredentials userCredentials = loadUserByUsername(username);
         Role role = loadRoleByName(rolesName);
+        System.out.println("avant : "+userCredentials);
         userCredentials.getRolesOfUser().add(role);
+        System.out.println("apres : "+userCredentials);
     }
 
 
