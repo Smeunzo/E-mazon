@@ -47,4 +47,7 @@ public class Customer {
     @OneToOne
     private Address address;
 
+    private void setId(Long id) {
+        this.id = id;
+    }
 }

@@ -1,20 +1,18 @@
 package com.emazon.services.customer.service;
 
-import com.emazon.services.customer.dao.CustomerRepository;
 import com.emazon.services.customer.entity.Customer;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 
-import javax.transaction.Transactional;
+public interface CustomerService {
 
-@Service
-@AllArgsConstructor
-public class CustomerService {
-    private final CustomerRepository customerRepository;
+    CollectionModel<EntityModel<Customer>> getCustomers();
 
-    @Transactional
-    public void createCustomer(){
+    EntityModel<Customer> getCustomerById(String customerId);
 
-    }
+    EntityModel<Customer> createNewCustomer(Customer customer);
 
+    boolean updateCustomer(String customerId, Customer customer);
+
+    boolean removeCustomer (String customerId);
 }

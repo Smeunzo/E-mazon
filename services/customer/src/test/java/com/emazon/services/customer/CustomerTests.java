@@ -2,6 +2,7 @@ package com.emazon.services.customer;
 
 import com.emazon.services.customer.entity.Address;
 import com.emazon.services.customer.entity.Customer;
+import com.emazon.services.customer.utils.UUIDGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -48,6 +49,7 @@ class CustomerTests {
 		Address address = new Address();
 
 		Customer customer = new Customer();
+		customer.setCustomerId(UUIDGenerator.generate());
 		customer.setFirstName("firstName");
 		customer.setLastName("lastName");
 		customer.setBirthdate(LocalDate.of(1999, Month.AUGUST,1));

@@ -1,5 +1,6 @@
-package com.emazon.services.customer.controller;
+package com.emazon.services.customer.exception;
 
+import com.emazon.services.customer.exception.CustomerNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.AllArgsConstructor;

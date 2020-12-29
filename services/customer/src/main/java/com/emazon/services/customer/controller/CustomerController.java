@@ -1,56 +1,32 @@
 package com.emazon.services.customer.controller;
 
-import com.emazon.services.customer.dao.CustomerRepository;
 import com.emazon.services.customer.entity.Customer;
+import com.emazon.services.customer.service.CustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/customers")
 @AllArgsConstructor
 public class CustomerController {
-    private final CustomerRepository customerRepository;
+    private final CustomerService customerService;
 
-    @GetMapping("/customers")
-    CollectionModel<EntityModel<Customer>> all() {
-        final List<EntityModel<Customer>> customerModel =
-                customerRepository
-                        .findAll()
-                        .stream()
-                        .map(CustomerController::getCustomersEntityModel).collect(Collectors.toList());
-
-        return CollectionModel.of(customerModel,
-                linkTo(methodOn(CustomerController.class).all()).withSelfRel());
+    @GetMapping("/")
+    public CollectionModel<EntityModel<Customer>> all() {
+        return customerService.getCustomers();
     }
 
-    private static EntityModel<Customer> getCustomersEntityModel(Customer customer) {
-        return EntityModel.of(customer,
-                linkTo(methodOn(CustomerController.class).one(customer.getCustomerId())).withSelfRel(),
-                linkTo(methodOn(CustomerController.class).all()).withRel("customer")
-        );
+    @GetMapping("/get/{customerId}")
+    public EntityModel<Customer> one(@PathVariable String customerId) {
+        return customerService.getCustomerById(customerId);
     }
 
-    @GetMapping("/customers/{customerId}")
-    EntityModel<Customer> one(@PathVariable String customerId) {
-
-        Customer customer = customerRepository.findByCustomerId(customerId)
-                .orElseThrow(() -> {
-                    throw new CustomerNotFoundException(customerId);
-                });
-
-        return EntityModel
-                .of(customer,
-                        linkTo(methodOn(CustomerController.class).one(customerId)).withSelfRel(),
-                        linkTo(methodOn(CustomerController.class).all()).withRel("customers")
-                );
+    @PostMapping("/add")
+    public EntityModel<Customer> addNewCustomer(@RequestBody Customer customer){
+        return customerService.createNewCustomer(customer);
     }
 }
