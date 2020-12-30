@@ -7,16 +7,12 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.emazon.services.user.entity.Role;
 import com.emazon.services.user.entity.UserCredentials;
 import com.emazon.services.user.entity.UsernameAndRolesName;
+import com.emazon.services.user.security.JWTUtil;
 import com.emazon.services.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
@@ -29,13 +25,12 @@ class UserController {
     private final UserService userService;
 
     @GetMapping(path = "/users")
-    //@PostAuthorize("hasAuthority('USER')")
+    @PostAuthorize("hasAuthority('ADMIN')")
     public Collection<UserCredentials> getUsers() {
         return userService.loadUsers();
     }
 
     @PostMapping(path = "/registerUser")
-
     public UserCredentials addUser(@RequestBody UserCredentials userCredentials) {
         return userService.addNewUser(userCredentials);
     }
@@ -53,21 +48,20 @@ class UserController {
         userService.addRoleToUserByUsername(usernameAndRolesName.getUsername(), usernameAndRolesName.getRolesname());
     }
 
-    // TODO refactor code
     @GetMapping(path = "/refreshToken")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws Exception{
-        String authToken = request.getHeader("Authorization");
-        if (authToken != null && authToken.startsWith("Bearer ")) {
+        String authToken = request.getHeader(JWTUtil.AUTH_HEADER);
+        if (authToken != null && authToken.startsWith(JWTUtil.PREFIXTOKEN)) {
             try {
-                String refreshToken = authToken.substring(7);
-                Algorithm algorithm1 = Algorithm.HMAC256("mySecret1234");
+                String refreshToken = authToken.substring(JWTUtil.PREFIXTOKEN.length());
+                Algorithm algorithm1 = Algorithm.HMAC256(JWTUtil.SECRET);
                 JWTVerifier jwtVerifier = JWT.require(algorithm1).build();
                 DecodedJWT decodedJWT = jwtVerifier.verify(refreshToken);
                 String username = decodedJWT.getSubject();
                 UserCredentials userCredentials = userService.loadUserByUsername(username);
                 String jwtAccessToken = JWT.create()
                         .withSubject(userCredentials.getUsername())
-                        .withExpiresAt(new Date(System.currentTimeMillis()+5*60*1000))
+                        .withExpiresAt(new Date(System.currentTimeMillis()+JWTUtil.EXPIRE_REFRESH_TOKEN))
                         .withIssuer(request.getRequestURL().toString())
                         .withClaim("roles",userCredentials.getRolesOfUser().stream().map(ga->ga.getRolesName()).collect(Collectors.toList()))
                         .sign(algorithm1);
@@ -76,7 +70,7 @@ class UserController {
                 idToken.put("refresh-token",refreshToken);
                 response.setContentType("application/json");
                 new ObjectMapper().writeValue(response.getOutputStream(),idToken);
-                response.setHeader("Authorization",jwtAccessToken);
+                response.setHeader(JWTUtil.AUTH_HEADER,jwtAccessToken);
             }
             catch (Exception e){
                 throw e ;
