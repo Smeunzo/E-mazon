@@ -16,8 +16,6 @@ import java.util.Collection;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class UserCredentials {
 
-
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
 
