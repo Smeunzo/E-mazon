@@ -3,7 +3,7 @@ package com.emazon.services.user.security;
 import com.emazon.services.user.entity.UserCredentials;
 import com.emazon.services.user.security.filters.JwtAuthenticationFilter;
 import com.emazon.services.user.security.filters.JwtAuthorizationFilter;
-import com.emazon.services.user.service.UserServicesInterface;
+import com.emazon.services.user.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,15 +19,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 import java.util.ArrayList;
 import java.util.Collection;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private UserServicesInterface userService ;
+    private final UserService userService ;
 
-    public SecurityConfig(UserServicesInterface userService){
+    public SecurityConfig(UserService userService){
         this.userService = userService ;
     }
 
