@@ -7,4 +7,5 @@ import java.util.Collection;
 public interface ProductService {
     Collection<Product> loadProducts();
     Product addNewProduct(Product product);
+    Product loadProductByName(String productName);
 }

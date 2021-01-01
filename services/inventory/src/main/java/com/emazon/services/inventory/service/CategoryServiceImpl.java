@@ -2,6 +2,7 @@ package com.emazon.services.inventory.service;
 
 import com.emazon.services.inventory.dao.CategoryRepository;
 import com.emazon.services.inventory.entity.Category;
+import com.emazon.services.inventory.entity.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,8 @@ public class CategoryServiceImpl implements CategoryService{
         System.out.println(categoryName);
         return categoryRepository.findCategoryByName(categoryName);
     }
+
+
 
     public Collection<Category> loadCategories(){
         return categoryRepository.findAll();

@@ -18,8 +18,9 @@ public class Product {
     private double price ;
 
     @NotBlank
-    String name ;
+    private String name ;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category ;
 
 }

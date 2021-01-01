@@ -22,4 +22,8 @@ public class ProductServiceImpl implements ProductService{
         System.out.println(product);
         return productRepository.save(product);
     }
+
+    public Product loadProductByName(String productName){
+        return productRepository.findProductByName(productName);
+    }
 }
