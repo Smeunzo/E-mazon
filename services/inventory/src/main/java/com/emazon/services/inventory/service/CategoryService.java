@@ -1,9 +1,9 @@
 package com.emazon.services.inventory.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.emazon.services.inventory.entity.Category;
 
-@Service
-@AllArgsConstructor
-public class CategoryService {
+public interface CategoryService {
+
+    Category addCategory(Category category);
+    Category loadCategoryByName(String categoryName);
 }

@@ -5,16 +5,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Product {
 
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
+
     private double price ;
+
+    @NotBlank
     String name ;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Inventory inventory ;
+
+
 }

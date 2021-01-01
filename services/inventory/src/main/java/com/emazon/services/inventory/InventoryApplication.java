@@ -1,9 +1,11 @@
 package com.emazon.services.inventory;
 
-import com.emazon.services.inventory.dao.CategoryRepository;
-import com.emazon.services.inventory.dao.ProductRepository;
-import com.emazon.services.inventory.entity.Inventory;
+import com.emazon.services.inventory.entity.Category;
 import com.emazon.services.inventory.entity.Product;
+import com.emazon.services.inventory.service.CategoryService;
+import com.emazon.services.inventory.service.CategoryServiceImpl;
+import com.emazon.services.inventory.service.ProductService;
+import com.emazon.services.inventory.service.ProductServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 import java.util.ArrayList;
+
 
 @SpringBootApplication
 @EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true)// authorise prepost annotation
@@ -21,26 +24,37 @@ public class InventoryApplication {
 	}
 
 	@Bean
-	CommandLineRunner start(CategoryRepository cr, ProductRepository pr){
+	CommandLineRunner start(ProductService productService, CategoryService categoryService){
 		return args -> {
 
-			Inventory inventory = new Inventory(null,new ArrayList<>());
-			Product product1 = new Product(null,100,"iphone",inventory);
-			Product product2 = new Product(null,100,"samsung",inventory);
-			Product product3 = new Product(null,100,"huawei",inventory);
-			Product product4 = new Product(null,100,"xiaomi",inventory);
-			Product product5 = new Product(null,100,"wiko",inventory);
-			Product product6 = new Product(null,100,"sony",inventory);
-			Product product7 = new Product(null,100,"oneplus",inventory);
-			inventory.getProducts().add(product1);
-			inventory.getProducts().add(product2);
-			inventory.getProducts().add(product3);
-			inventory.getProducts().add(product4);
-			inventory.getProducts().add(product5);
-			inventory.getProducts().add(product6);
-			inventory.getProducts().add(product7);
-			cr.save(inventory);
-			pr.saveAll(inventory.getProducts());
+
+			Product product1 = new Product(null,100,"iphone");
+			Product product2 = new Product(null,100,"samsung");
+			Product product3 = new Product(null,100,"huawei");
+			Product product4 = new Product(null,100,"xiaomi");
+			Product product5 = new Product(null,100,"wiko");
+			Product product6 = new Product(null,100,"sony");
+			Product product7 = new Product(null,100,"oneplus");
+
+			productService.addNewProduct(product1);
+			productService.addNewProduct(product2);
+			productService.addNewProduct(product3);
+			productService.addNewProduct(product4);
+			productService.addNewProduct(product5);
+			productService.addNewProduct(product6);
+			productService.addNewProduct(product7);
+
+			Category phones = new Category(null,"phones",new ArrayList<>());
+			categoryService.addCategory(phones);
+			phones.getProducts().add(product1);
+			phones.getProducts().add(product2);
+			phones.getProducts().add(product3);
+			phones.getProducts().add(product4);
+			phones.getProducts().add(product5);
+			phones.getProducts().add(product6);
+			phones.getProducts().add(product7);
+
+
 
 		};
 	}
