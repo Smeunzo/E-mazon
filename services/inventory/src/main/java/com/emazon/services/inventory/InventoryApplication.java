@@ -1,19 +1,14 @@
 package com.emazon.services.inventory;
 
-import com.emazon.services.inventory.dao.CategoryRepository;
 import com.emazon.services.inventory.entity.Category;
 import com.emazon.services.inventory.entity.Product;
 import com.emazon.services.inventory.service.CategoryService;
-import com.emazon.services.inventory.service.CategoryServiceImpl;
 import com.emazon.services.inventory.service.ProductService;
-import com.emazon.services.inventory.service.ProductServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-
-import java.util.ArrayList;
 
 
 @SpringBootApplication
@@ -32,13 +27,13 @@ public class InventoryApplication {
 			phones.setName("phones");
 			categoryService.addCategory(phones);
 
-			Product product1 = new Product(null,100,"iphone");
-			Product product2 = new Product(null,100,"samsung");
-			Product product3 = new Product(null,100,"huawei");
-			Product product4 = new Product(null,100,"xiaomi");
-			Product product5 = new Product(null,100,"wiko");
-			Product product6 = new Product(null,100,"sony");
-			Product product7 = new Product(null,100,"oneplus");
+			Product product1 = new Product(null,100,"iphone",100,"description");
+			Product product2 = new Product(null,100,"samsung",100,"description");
+			Product product3 = new Product(null,100,"huawei",100,"description");
+			Product product4 = new Product(null,100,"xiaomi",100,"description");
+			Product product5 = new Product(null,100,"wiko",100,"description");
+			Product product6 = new Product(null,100,"sony",100,"description");
+			Product product7 = new Product(null,100,"oneplus",100,"description");
 
 			productService.addNewProduct(product1);
 			productService.addNewProduct(product2);
@@ -48,24 +43,7 @@ public class InventoryApplication {
 			productService.addNewProduct(product6);
 			productService.addNewProduct(product7);
 
-			categoryService.addProducts(phones,product1,product2,product3,product4,product5,product6,product7);
-
-
-//			Category accessoire = new Category(null,"accessoire",new ArrayList<>());
-//			categoryService.addCategory(accessoire);
-//
-//			Product cable = new Product(null,50,"cable");
-//			Product adaptateur = new Product(null,20,"adaptateur");
-//
-//			productService.addNewProduct(cable);
-//			productService.addNewProduct(adaptateur);
-//
-//			accessoire.getProducts().add(cable);
-//			accessoire.getProducts().add(adaptateur);
-
-
-			//System.out.println(accessoire);
-			System.out.println(phones);
+			categoryService.linkProducts(phones,product1,product2,product3,product4,product5,product6,product7);
 
 		};
 	}

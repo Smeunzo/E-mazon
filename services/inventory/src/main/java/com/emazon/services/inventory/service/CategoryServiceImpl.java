@@ -3,10 +3,14 @@ package com.emazon.services.inventory.service;
 import com.emazon.services.inventory.dao.CategoryRepository;
 import com.emazon.services.inventory.entity.Category;
 import com.emazon.services.inventory.entity.Product;
+import com.emazon.services.inventory.exception.AlreadyExistException;
+import com.emazon.services.inventory.util.UtilService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -14,13 +18,19 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-
+@Validated
 public class CategoryServiceImpl implements CategoryService{
 
     private final CategoryRepository categoryRepository ;
 
     @Override
+    @Transactional
     public Category addCategory(Category category){
+        UtilService.validate(category);
+        if(categoryRepository.existsCategoryByName(category.getName())){
+            throw new AlreadyExistException(category.getName());
+        }
+
         System.out.println(category);
        return  categoryRepository.save(category);
     }
@@ -33,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     @Transactional
-    public Category addProduct(Category c, Product p){
+    public Category linkProduct(Category c, Product p){
         Category category = categoryRepository.findCategoryByName(c.getName());
 
         category.getProducts().add(p);
@@ -42,9 +52,8 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     @Transactional
-    public Category addProducts(Category c, Product... p){
+    public Category linkProducts(Category c, Product... p){
         Category category = categoryRepository.findCategoryByName(c.getName());
-
         category.getProducts().addAll(Arrays.stream(p).collect(Collectors.toList()));
         return categoryRepository.save(category);
     }

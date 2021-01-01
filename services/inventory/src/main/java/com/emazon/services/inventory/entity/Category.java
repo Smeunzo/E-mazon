@@ -24,4 +24,6 @@ public class Category {
 
     @OneToMany(cascade = CascadeType.ALL)
     private Collection<Product> products = new ArrayList<>();
+
+    private String description ;
 }

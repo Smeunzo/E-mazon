@@ -11,9 +11,9 @@ public interface CategoryService {
 
     Category loadCategoryByName(String categoryName);
 
-    Category addProduct(Category c, Product p);
+    Category linkProduct(Category c, Product p);
 
-    Category addProducts(Category c, Product... p);
+    Category linkProducts(Category c, Product... p);
 
     Collection<Category> loadCategories();
 }

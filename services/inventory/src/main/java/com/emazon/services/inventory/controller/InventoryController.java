@@ -6,7 +6,6 @@ import com.emazon.services.inventory.service.CategoryService;
 import com.emazon.services.inventory.service.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.http.HttpEntity;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +24,7 @@ public class InventoryController {
         return productService.loadProducts();
     }
 
-    @GetMapping(path ="inventory/catogories")
+    @GetMapping(path ="/inventory/categories")
     @PostAuthorize("hasAuthority('USER')")
     public Collection<Category> getCategories(){
         return categoryService.loadCategories();
@@ -37,7 +36,7 @@ public class InventoryController {
         return categoryService.loadCategoryByName(categoryName).getProducts();
     }
 
-    @PostMapping(path = "inventory/addProduct")
+    @PostMapping(path = "/inventory/addProduct")
     @PostAuthorize("hasAuthority('ADMIN')")
     public Product addProduct(@RequestBody Product product){
         return productService.addNewProduct(product);
@@ -55,9 +54,7 @@ public class InventoryController {
 
         Product product = productService.loadProductByName(categoryProductData.getProductName());
         Category category = categoryService.loadCategoryByName(categoryProductData.getCategoryName());
-        System.out.println(product+" "+category);
-        category.getProducts().add(product);
-        return category ;
+        return categoryService.linkProduct(category,product);
     }
 
     @AllArgsConstructor
