@@ -46,6 +46,7 @@ public class InventoryApplication {
 
 			Category phones = new Category(null,"phones",new ArrayList<>());
 			categoryService.addCategory(phones);
+
 			phones.getProducts().add(product1);
 			phones.getProducts().add(product2);
 			phones.getProducts().add(product3);
@@ -53,8 +54,6 @@ public class InventoryApplication {
 			phones.getProducts().add(product5);
 			phones.getProducts().add(product6);
 			phones.getProducts().add(product7);
-
-
 
 		};
 	}
