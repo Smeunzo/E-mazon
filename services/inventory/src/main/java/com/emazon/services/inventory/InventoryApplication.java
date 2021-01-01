@@ -1,6 +1,6 @@
 package com.emazon.services.inventory;
 
-import com.emazon.services.inventory.dao.InventoryRepository;
+import com.emazon.services.inventory.dao.CategoryRepository;
 import com.emazon.services.inventory.dao.ProductRepository;
 import com.emazon.services.inventory.entity.Inventory;
 import com.emazon.services.inventory.entity.Product;
@@ -8,10 +8,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 import java.util.ArrayList;
 
 @SpringBootApplication
+@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true)// authorise prepost annotation
 public class InventoryApplication {
 
 	public static void main(String[] args) {
@@ -19,7 +21,7 @@ public class InventoryApplication {
 	}
 
 	@Bean
-	CommandLineRunner start(InventoryRepository cr, ProductRepository pr){
+	CommandLineRunner start(CategoryRepository cr, ProductRepository pr){
 		return args -> {
 
 			Inventory inventory = new Inventory(null,new ArrayList<>());
