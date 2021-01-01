@@ -25,19 +25,20 @@ public class InventoryApplication {
 	}
 
 	@Bean
-	CommandLineRunner start(ProductService productService, CategoryService categoryService, CategoryRepository categoryRepository){
+	CommandLineRunner start(ProductService productService, CategoryService categoryService){
 		return args -> {
 
-			Category phones = new Category(null,"phones");
+			Category phones = new Category();
+			phones.setName("phones");
 			categoryService.addCategory(phones);
 
-			Product product1 = new Product(null,100,"iphone",phones);
-			Product product2 = new Product(null,100,"samsung",phones);
-			Product product3 = new Product(null,100,"huawei",phones);
-			Product product4 = new Product(null,100,"xiaomi",phones);
-			Product product5 = new Product(null,100,"wiko",phones);
-			Product product6 = new Product(null,100,"sony",phones);
-			Product product7 = new Product(null,100,"oneplus",phones);
+			Product product1 = new Product(null,100,"iphone");
+			Product product2 = new Product(null,100,"samsung");
+			Product product3 = new Product(null,100,"huawei");
+			Product product4 = new Product(null,100,"xiaomi");
+			Product product5 = new Product(null,100,"wiko");
+			Product product6 = new Product(null,100,"sony");
+			Product product7 = new Product(null,100,"oneplus");
 
 			productService.addNewProduct(product1);
 			productService.addNewProduct(product2);
@@ -47,14 +48,7 @@ public class InventoryApplication {
 			productService.addNewProduct(product6);
 			productService.addNewProduct(product7);
 
-			phones.getProducts().add(product1);
-			phones.getProducts().add(product2);
-			phones.getProducts().add(product3);
-			phones.getProducts().add(product4);
-			phones.getProducts().add(product5);
-			phones.getProducts().add(product6);
-			phones.getProducts().add(product7);
-
+			categoryService.addProducts(phones,product1,product2,product3,product4,product5,product6,product7);
 
 
 //			Category accessoire = new Category(null,"accessoire",new ArrayList<>());

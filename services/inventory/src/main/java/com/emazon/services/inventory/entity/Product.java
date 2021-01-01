@@ -11,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Product {
 
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
 
@@ -19,8 +18,5 @@ public class Product {
 
     @NotBlank
     private String name ;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Category category ;
 
 }

@@ -14,10 +14,6 @@ import java.util.Collection;
 @NoArgsConstructor
 @ToString
 public class Category {
-    public Category(Long id, @NotBlank String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +22,6 @@ public class Category {
     @NotBlank
     private String name ;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private Collection<Product> products = new ArrayList<>();
 }
