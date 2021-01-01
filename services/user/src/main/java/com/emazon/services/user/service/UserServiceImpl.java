@@ -4,6 +4,7 @@ import com.emazon.services.user.dao.UserRepository;
 import com.emazon.services.user.entity.Role;
 import com.emazon.services.user.entity.UserCredentials;
 import com.emazon.services.user.exceptions.UsernameAlreadyInUseException;
+import com.emazon.services.user.util.UUIDGenerator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,8 +43,7 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public Role loadRoleByName(String rolesName){
-        Role role = roleRepository.findRoleCredentialsByRolesName(rolesName);
-        return role ;
+        return roleRepository.findRoleCredentialsByRolesName(rolesName);
 
     }
     @Override
