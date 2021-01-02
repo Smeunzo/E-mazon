@@ -1,25 +1,19 @@
 package com.emazon.services.userinfo.service;
 
-import com.emazon.services.userinfo.controller.UserInfoController;
 import com.emazon.services.userinfo.dao.AddressRepository;
 import com.emazon.services.userinfo.dao.UserInfoRepository;
 import com.emazon.services.userinfo.entity.UserInfo;
+import com.emazon.services.userinfo.exception.IllegalModificationException;
 import com.emazon.services.userinfo.exception.UserInfoAlreadyExistsException;
 import com.emazon.services.userinfo.exception.UserInfoNotFoundException;
-import com.emazon.services.userinfo.exception.IllegalModificationException;
 import com.emazon.services.userinfo.utils.UUIDGenerator;
 import lombok.AllArgsConstructor;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.emazon.services.userinfo.utils.Validator.validate;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 @AllArgsConstructor
@@ -29,35 +23,21 @@ public class UserInfoServiceImpl implements UserInfoService {
     private final AddressRepository addressRepository;
 
     @Override
-    public CollectionModel<EntityModel<UserInfo>> getCustomers() {
-        final List<EntityModel<UserInfo>> customerModel =
-                userInfoRepository
-                        .findAll()
-                        .stream()
-                        .map(UserInfoServiceImpl::getCustomersEntityModel).collect(Collectors.toList());
-
-        return CollectionModel.of(customerModel,
-                linkTo(methodOn(UserInfoController.class).all()).withSelfRel());
+    public List<UserInfo> getCustomers() {
+        return userInfoRepository.findAll();
     }
 
-
     @Override
-    public EntityModel<UserInfo> getCustomerById(String customerId) {
+    public UserInfo getCustomerById(String customerId) {
 
-        UserInfo userInfo = userInfoRepository.findByCustomerId(customerId)
+        return userInfoRepository.findByCustomerId(customerId)
                 .orElseThrow(() -> {
                     throw new UserInfoNotFoundException(customerId);
                 });
-
-        return EntityModel
-                .of(userInfo,
-                        linkTo(methodOn(UserInfoController.class).one(customerId)).withSelfRel(),
-                        linkTo(methodOn(UserInfoController.class).all()).withRel("customers")
-                );
     }
 
     @Override
-    public EntityModel<UserInfo> createNewCustomer(UserInfo userInfo) {
+    public UserInfo createNewCustomer(UserInfo userInfo) {
         throwIfCustomerIdIsModified(userInfo);
         userInfo.setCustomerId(UUIDGenerator.generate());
 
@@ -65,13 +45,8 @@ public class UserInfoServiceImpl implements UserInfoService {
         throwIfEmailAlreadyExists(userInfo.getEmail());
         addressRepository.save(userInfo.getAddress());
 
-        return EntityModel.of(
-                userInfoRepository.save(userInfo),
-                linkTo(methodOn(UserInfoController.class).one(userInfo.getCustomerId())).withSelfRel(),
-                linkTo(methodOn(UserInfoController.class).all()).withRel("customers")
-        );
+        return userInfoRepository.save(userInfo);
     }
-
 
     @Override
     public boolean updateCustomer(String customerId, UserInfo userInfo) {
@@ -81,14 +56,6 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public boolean removeCustomer(String customerId) {
         return false;
-    }
-
-
-    private static EntityModel<UserInfo> getCustomersEntityModel(UserInfo userInfo) {
-        return EntityModel.of(userInfo,
-                linkTo(methodOn(UserInfoController.class).one(userInfo.getCustomerId())).withSelfRel(),
-                linkTo(methodOn(UserInfoController.class).all()).withRel("customers")
-        );
     }
 
     private void throwIfCustomerIdIsModified(UserInfo userInfo) {
