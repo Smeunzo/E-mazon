@@ -16,8 +16,6 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<jmockit.version>1.49</jmockit.version>
-		<mvn.repo>${user.home}\.m2\repository</mvn.repo>
 	</properties>
 
 	<dependencies>
@@ -75,13 +73,5 @@
 			<version>3.6.28</version>
 			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.jmockit</groupId>
-			<artifactId>jmockit</artifactId>
-			<version>${jmockit.version}</version>
-			<scope>test</scope>
-		</dependency>
-
 	</dependencies>
 </project>
