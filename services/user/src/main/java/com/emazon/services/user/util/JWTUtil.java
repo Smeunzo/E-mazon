@@ -1,9 +1,12 @@
-package com.emazon.services.user.security;
+package com.emazon.services.user.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -12,13 +15,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JWTUtil {
-    public static final String SECRET = "mySecret1234";
+public class JWTUtil{
+
+    public final static String SECRET = "MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgHhPWZ8yew0ty5itxcaIJccUcKZY";
+    public final static long EXPIRE_ACCESS_TOKEN = 120_000;
+    public final static long EXPIRE_REFRESH_TOKEN = 86_400_000;
     public static final String AUTH_HEADER = "Authorization";
-    public static final long EXPIRE_ACCES_TOKEN = 2 * 60 * 1000;
-    public static final long EXPIRE_REFRESH_TOKEN = 15 * 60 * 1000;
-    public static final String PREFIXTOKEN = "Bearer ";
-    public static final String REFRESHTOKENROOT = "/refreshToken";
+    public static final String BEARER_TOKEN_PREFIX = "Bearer ";
+    public static final String REFRESH_TOKEN_ROUTE = "/refreshToken";
 
 
     private static JWTCreator.Builder generateToken(String username, String requestURL, Date expireDate) {
@@ -29,7 +33,7 @@ public class JWTUtil {
     }
 
     public static String generateAccessToken(String username, String requestURL, List<String> roles) {
-        return generateToken(username, requestURL, new Date(System.currentTimeMillis() + JWTUtil.EXPIRE_ACCES_TOKEN))
+        return generateToken(username, requestURL, new Date(System.currentTimeMillis() + JWTUtil.EXPIRE_ACCESS_TOKEN))
                 .withClaim("roles", roles)
                 .sign(Algorithm.HMAC256(SECRET));
     }
@@ -48,4 +52,18 @@ public class JWTUtil {
         response.setHeader(JWTUtil.AUTH_HEADER, jwtAccessToken);
     }
 
+    public static JWTVerifier getVerifier() {
+        Algorithm algorithm = Algorithm.HMAC256(JWTUtil.SECRET);
+        return JWT.require(algorithm).build();
+    }
+
+    public static DecodedJWT getDecodedJWT(String authorizationToken) {
+        String token = unBearerToken(authorizationToken); // remove "Bearer" from Authorization's header
+        JWTVerifier jwtVerifier = JWTUtil.getVerifier();
+        return jwtVerifier.verify(token);
+    }
+
+    public static String unBearerToken(String authorizationToken) {
+        return authorizationToken.substring(JWTUtil.BEARER_TOKEN_PREFIX.length());
+    }
 }
