@@ -22,7 +22,7 @@ public class JWTUtil{
     public final static long EXPIRE_REFRESH_TOKEN = 86_400_000;
     public static final String AUTH_HEADER = "Authorization";
     public static final String BEARER_TOKEN_PREFIX = "Bearer ";
-    public static final String REFRESH_TOKEN_ROUTE = "/refreshToken";
+    public static final String REFRESH_TOKEN_ROUTE = "/users/refreshToken";
 
 
     private static JWTCreator.Builder generateToken(String username, String requestURL, Date expireDate) {

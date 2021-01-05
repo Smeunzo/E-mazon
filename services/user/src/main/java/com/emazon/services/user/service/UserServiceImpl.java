@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void addRoleToUserByUsername(String username, String rolesName){
         UserCredentials userCredentials = loadUserByUsername(username);
         Role role = loadRoleByName(rolesName);

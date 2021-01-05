@@ -20,7 +20,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     @Override //This methode is executed for each request
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if(!request.getServletPath().equals(JWTUtil.REFRESH_TOKEN_ROUTE)){
+        if (request.getServletPath().equals(JWTUtil.REFRESH_TOKEN_ROUTE)) {
+            filterChain.doFilter(request,response);
+        }
+        else {
             String authorizationToken = request.getHeader(JWTUtil.AUTH_HEADER);
             if (authorizationToken != null && authorizationToken.startsWith(JWTUtil.BEARER_TOKEN_PREFIX)) {
                 try {
@@ -31,8 +34,11 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                     response.sendError(HttpServletResponse.SC_FORBIDDEN);
                 }
             }
+            else{
+                filterChain.doFilter(request,response);
+            }
         }
-        filterChain.doFilter(request,response);
+
     }
 
     private void createAuthToken(HttpServletRequest request,

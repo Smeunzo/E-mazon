@@ -29,24 +29,24 @@ class UserController {
         return userService.loadUsers();
     }
 
-    @PostMapping(path = "/registerUser")
+    @PostMapping(path = "/users/registerUser")
     public UserCredentials addUser(@RequestBody UserCredentials userCredentials) {
         return userService.addNewUser(userCredentials);
     }
 
-    @PostMapping(path = "/addRole")
+    @PostMapping(path = "/users/addRole")
     @PostAuthorize("hasAuthority('ADMIN')")
     public Role addRole(@RequestBody Role role) {
         return userService.addNewRole(role);
     }
 
-    @PostMapping(path = "/addRoleToUser")
+    @PostMapping(path = "/users/addRoleToUser")
     @PostAuthorize("hasAuthority('ADMIN')")
     public void addRoleToUser(@RequestBody UsernameAndRolesName usernameAndRolesName) {
         userService.addRoleToUserByUsername(usernameAndRolesName.getUsername(), usernameAndRolesName.getRolesname());
     }
 
-    @GetMapping(path = "/refreshToken")
+    @GetMapping(path = "/users/refreshToken")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws Exception{
         jwtService.refreshToken(request,response);
     }
