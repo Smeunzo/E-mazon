@@ -12,17 +12,17 @@ import java.util.List;
 public class UserInfoController {
     private final UserInfoService userInfoService;
 
-    @GetMapping("/customers")
+    @GetMapping("/users")
     public List<UserInfo> all() {
         return userInfoService.getCustomers();
     }
 
-    @GetMapping("/customers/{customerId}")
-    public UserInfo one(@PathVariable String customerId) {
-        return userInfoService.getCustomerById(customerId);
+    @GetMapping("/users/{userId}")
+    public UserInfo one(@PathVariable String userId) {
+        return userInfoService.getCustomerById(userId);
     }
 
-    @PostMapping("/customers")
+    @PostMapping("/users")
     public UserInfo addNewCustomer(@RequestBody UserInfo userInfo){
         return userInfoService.createNewCustomer(userInfo);
     }
