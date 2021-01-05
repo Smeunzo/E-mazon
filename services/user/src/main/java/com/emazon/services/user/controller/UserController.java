@@ -2,7 +2,7 @@ package com.emazon.services.user.controller;
 
 import com.emazon.services.user.entity.Role;
 import com.emazon.services.user.entity.UserCredentials;
-import com.emazon.services.user.entity.UsernameAndRolesName;
+import com.emazon.services.user.util.UsernameAndRolesName;
 import com.emazon.services.user.service.JWTService;
 import com.emazon.services.user.service.UserService;
 import lombok.AllArgsConstructor;

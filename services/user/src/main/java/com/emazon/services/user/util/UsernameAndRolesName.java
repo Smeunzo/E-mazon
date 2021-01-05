@@ -1,4 +1,4 @@
-package com.emazon.services.user.entity;
+package com.emazon.services.user.util;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 @Data
