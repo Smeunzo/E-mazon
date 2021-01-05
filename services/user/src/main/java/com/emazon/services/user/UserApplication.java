@@ -43,6 +43,7 @@ public class UserApplication {
             userServiceImpl.addNewUser(users2);
 
             userServiceImpl.addRoleToUserByUsername("hakim","ADMIN");
+
         };
     }
 

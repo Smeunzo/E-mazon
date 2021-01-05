@@ -12,10 +12,10 @@ public class GatewayApplication {
 	@Bean
 	RouteLocator routes(RouteLocatorBuilder builder){
 		return builder.routes()
-				.route(r->r.path("/customers/").uri("lb://USER_INFO-SERVICE").id("r1"))
-				.route(r->r.path("/inventory/").uri("lb://INVENTORY-SERVICE").id("r2"))
-				.route(r->r.path("/users/").uri("lb://USER-SERVICE").id("r3"))
-				.route(r->r.path("/login/").uri("lb://USER-SERVICE").id("r4"))
+				.route(r->r.path("/customers/**").uri("lb://USER_INFO-SERVICE").id("r1"))
+				.route(r->r.path("/inventory/**").uri("lb://INVENTORY-SERVICE").id("r2"))
+				.route(r->r.path("/users/**").uri("lb://USER-SERVICE").id("r3"))
+				.route(r->r.path("/login/**").uri("lb://USER-SERVICE").id("r4"))
 				.build();
 	}
 
