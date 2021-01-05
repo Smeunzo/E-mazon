@@ -4,7 +4,8 @@ import com.emazon.services.user.dao.RoleRepository;
 import com.emazon.services.user.dao.UserRepository;
 import com.emazon.services.user.entity.Role;
 import com.emazon.services.user.entity.UserCredentials;
-import com.emazon.services.user.exceptions.UsernameAlreadyInUseException;
+import com.emazon.services.user.exceptions.RoleAlreadyExistsException;
+import com.emazon.services.user.exceptions.UsernameAlreadyExistsException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class UserServiceImpl implements UserService {
         validate(userCredentials);
         boolean containsUsername = userRepository.existsByUsername(userCredentials.getUsername());
         if(containsUsername)
-            throw new UsernameAlreadyInUseException(userCredentials.getUsername());
+            throw new UsernameAlreadyExistsException(userCredentials.getUsername());
 
         String password = userCredentials.getPassword();
         userCredentials.setPassword(passwordEncoder.encode(password));
@@ -54,11 +55,15 @@ public class UserServiceImpl implements UserService {
         return user ;
     }
 
-    private void validate (@Valid @SuppressWarnings(value = "unused") UserCredentials userCredentials){ }
+    private <T> void validate (@Valid @SuppressWarnings(value = "unused")T t){ }
+
 
     @Override
     @Transactional
     public Role addNewRole(Role role){
+        validate(role);
+        if(roleRepository.existsRoleByRolesName(role.getRolesName()))
+            throw new RoleAlreadyExistsException(role.getRolesName());
         return roleRepository.save(role);
     }
 

@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 @AllArgsConstructor
-public class UsernameAlreadyInUseAdvice {
+public class UsernameAlreadyExistsAdvice {
     private ObjectMapper objectMapper ;
 
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(UsernameAlreadyInUseException.class)
-    public ObjectNode usernameAlreadyInUseHandler(UsernameAlreadyInUseException e){
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
+    public ObjectNode usernameAlreadyInUseHandler(UsernameAlreadyExistsException e){
         ObjectNode objectNode = objectMapper.createObjectNode();
         objectNode.put("error description",e.getMessage());
         objectNode.put("error status ",HttpStatus.BAD_REQUEST.value());

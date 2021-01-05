@@ -23,6 +23,7 @@ public class JWTUtil{
     public static final String AUTH_HEADER = "Authorization";
     public static final String BEARER_TOKEN_PREFIX = "Bearer ";
     public static final String REFRESH_TOKEN_ROUTE = "/users/refreshToken";
+    public static final String REGISTER_USER_ROUTE = "/users/registerUser";
 
 
     private static JWTCreator.Builder generateToken(String username, String requestURL, Date expireDate) {
