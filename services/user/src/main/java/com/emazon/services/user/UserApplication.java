@@ -38,7 +38,6 @@ public class UserApplication {
             UserCredentials users1 = new UserCredentials(null,"hakim","hakim456", new ArrayList<>());
             UserCredentials users2 = new UserCredentials(null,"mhamed","mhamed456", new ArrayList<>());
 
-
             userServiceImpl.addNewUser(users1);
             userServiceImpl.addNewUser(users2);
 
