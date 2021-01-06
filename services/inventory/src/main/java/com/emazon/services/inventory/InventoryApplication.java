@@ -42,7 +42,7 @@ public class InventoryApplication {
 			productService.addNewProduct(product6);
 			productService.addNewProduct(product7);
 
-			categoryService.linkProducts(phones,product1,product2,product3,product4,product5,product6,product7);
+			categoryService.linkProductsToCategory(phones,product1,product2,product3,product4,product5,product6,product7);
 
 		};
 	}

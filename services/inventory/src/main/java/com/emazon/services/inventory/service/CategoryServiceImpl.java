@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     @Transactional
-    public Category linkProduct(Category c, Product p){
+    public Category linkProductToCategory(Category c, Product p){
         Category category = categoryRepository.findCategoryByName(c.getName());
 
         category.getProducts().add(p);
@@ -52,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     @Transactional
-    public Category linkProducts(Category c, Product... p){
+    public Category linkProductsToCategory(Category c, Product... p){
         Category category = categoryRepository.findCategoryByName(c.getName());
         category.getProducts().addAll(Arrays.stream(p).collect(Collectors.toList()));
         return categoryRepository.save(category);

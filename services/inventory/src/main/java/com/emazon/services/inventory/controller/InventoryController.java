@@ -54,7 +54,7 @@ public class InventoryController {
 
         Product product = productService.loadProductByName(categoryProductData.getProductName());
         Category category = categoryService.loadCategoryByName(categoryProductData.getCategoryName());
-        return categoryService.linkProduct(category,product);
+        return categoryService.linkProductToCategory(category,product);
     }
 
     @AllArgsConstructor
