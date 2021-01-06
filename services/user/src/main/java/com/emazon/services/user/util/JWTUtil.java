@@ -17,8 +17,8 @@ import java.util.Map;
 
 public class JWTUtil{
 
-    public final static String SECRET = "MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgHhPWZ8yew0ty5itxcaIJccUcKZY";
-    public final static long EXPIRE_ACCESS_TOKEN = 120_000;
+    public final static String SECRET = "6/ovo6F1A4bw0CxvuHLXN4ttds7tnLn8Y+U7f42NQucDeybKRukEkprXO0iRbJTA";
+    public final static long EXPIRE_ACCESS_TOKEN = 10*120_000;
     public final static long EXPIRE_REFRESH_TOKEN = 86_400_000;
     public static final String AUTH_HEADER = "Authorization";
     public static final String BEARER_TOKEN_PREFIX = "Bearer ";

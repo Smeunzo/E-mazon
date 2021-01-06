@@ -19,19 +19,16 @@ public class InventoryController {
     private final CategoryService categoryService;
 
     @GetMapping(path = "/inventory/products")
-    @PostAuthorize("hasAuthority('USER')")
     public Collection<Product> getProducts() {
         return productService.loadProducts();
     }
 
     @GetMapping(path ="/inventory/categories")
-    @PostAuthorize("hasAuthority('USER')")
     public Collection<Category> getCategories(){
         return categoryService.loadCategories();
     }
 
     @GetMapping(path = "/inventory/category/{name}")
-    @PostAuthorize("hasAuthority('USER')")
     public Collection<Product> loadCategory(@PathVariable(value = "name") String categoryName){
         return categoryService.loadCategoryByName(categoryName).getProducts();
     }

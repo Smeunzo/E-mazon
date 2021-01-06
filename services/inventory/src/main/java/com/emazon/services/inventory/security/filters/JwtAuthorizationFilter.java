@@ -23,7 +23,7 @@ import java.util.Collection;
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
     @Override //This methode is executed for each request
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if(request.getServletPath().equals(JWTUtil.REFRESHTOKENROOT)){
+        if(request.getServletPath().equals(JWTUtil.CATEGORIES_ROUTE) || request.getServletPath().equals(JWTUtil.CATEGORY_ROUTE) || request.getServletPath().equals(JWTUtil.PRODUCTS_ROUTE)){
             filterChain.doFilter(request,response);
         }
         else{
