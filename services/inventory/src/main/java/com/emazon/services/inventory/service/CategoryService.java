@@ -16,4 +16,6 @@ public interface CategoryService {
     Category linkProductsToCategory(Category c, Product... p);
 
     Collection<Category> loadCategories();
+
+    Collection<String> loadCategoriesNames();
 }

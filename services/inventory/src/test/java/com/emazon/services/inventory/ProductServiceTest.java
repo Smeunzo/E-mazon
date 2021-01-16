@@ -28,11 +28,11 @@ public class ProductServiceTest {
     @BeforeAll
     static void createRoles(){
 
-        product1 = new Product(null,2000,"iphone",20,"telephone chere");
-        product2 = new Product(null,1000,"samsung",50,"meilleur telephone");
-        product3 = new Product(null,500,"huawei",100,null); //Description can be null
-        newProduct = new Product(null,40,"wiko",5,null);
-        productAlreadyAddedInRepository = new Product(null,5000,"sony",500,null);
+        product1 = new Product(2000,"iphone",20,"telephone chere");
+        product2 = new Product(1000,"samsung",50,"meilleur telephone");
+        product3 = new Product(500,"huawei",100,null); //Description can be null
+        newProduct = new Product(40,"wiko",5,null);
+        productAlreadyAddedInRepository = new Product(5000,"sony",500,null);
 
     }
 

@@ -38,8 +38,8 @@ public class CategoryServiceTest {
         newCategory = new Category(null,"newCategory",new ArrayList<>(),"new category");
         categoryAlreadyAddedInRepository = new Category(null,"categoryAlreadyAddedInRepository",new ArrayList<>(),null);
 
-        product1 = new Product(null,2000,"iphone",20,"telephone chere");
-        product2 = new Product(null,1000,"samsung",50,"meilleur telephone");
+        product1 = new Product(2000,"iphone",20,"telephone chere");
+        product2 = new Product(1000,"samsung",50,"meilleur telephone");
 
     }
 

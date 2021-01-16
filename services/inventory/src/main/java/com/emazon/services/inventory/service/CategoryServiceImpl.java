@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -60,5 +61,13 @@ public class CategoryServiceImpl implements CategoryService{
 
     public Collection<Category> loadCategories(){
         return categoryRepository.findAll();
+    }
+
+    @Override
+    public Collection<String> loadCategoriesNames() {
+        Collection<Category> categories = loadCategories();
+        Collection<String> categoriesNames = new ArrayList<>();
+        categories.forEach((category)->{categoriesNames.add(category.getName());});
+        return categoriesNames ;
     }
 }

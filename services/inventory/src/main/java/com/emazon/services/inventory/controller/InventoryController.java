@@ -4,8 +4,9 @@ import com.emazon.services.inventory.entity.Category;
 import com.emazon.services.inventory.entity.Product;
 import com.emazon.services.inventory.service.CategoryService;
 import com.emazon.services.inventory.service.ProductService;
+import com.emazon.services.inventory.util.CategoryProductData;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +24,9 @@ public class InventoryController {
         return productService.loadProducts();
     }
 
-    @GetMapping(path ="/inventory/categories")
-    public Collection<Category> getCategories(){
-        return categoryService.loadCategories();
+    @GetMapping(path ="/inventory/category")
+    public Collection<String> getCategories(){
+        return categoryService.loadCategoriesNames();
     }
 
     @GetMapping(path = "/inventory/category/{name}")
@@ -47,19 +48,17 @@ public class InventoryController {
 
     @PostMapping(path = "/inventory/addProductToCategory")
     @PostAuthorize("hasAuthority('ADMIN')")
-    public Category addProductToCategory(@RequestBody  CategoryProductData categoryProductData){
-
+    public Category addProductToCategory(@RequestBody CategoryProductData categoryProductData){
         Product product = productService.loadProductByName(categoryProductData.getProductName());
         Category category = categoryService.loadCategoryByName(categoryProductData.getCategoryName());
         return categoryService.linkProductToCategory(category,product);
     }
 
-    @AllArgsConstructor
-    @Data
-    static class CategoryProductData{
-        private String categoryName;
-        private String productName ;
+    @GetMapping(path = "/inventory/product/{name}")
+    public Product loadProduct(@PathVariable(value = "name") String productName){
+        return productService.loadProductByName(productName);
     }
 
+   
 }
 
