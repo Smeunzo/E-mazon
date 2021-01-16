@@ -2,8 +2,8 @@ package com.emazon.services.inventory;
 
 import com.emazon.services.inventory.entity.Category;
 import com.emazon.services.inventory.entity.Product;
-import com.emazon.services.inventory.service.CategoryService;
-import com.emazon.services.inventory.service.ProductService;
+import com.emazon.services.inventory.service.interfaces.CategoryService;
+import com.emazon.services.inventory.service.interfaces.ProductService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

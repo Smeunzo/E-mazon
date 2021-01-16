@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Collection;
 
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
@@ -42,5 +43,8 @@ public class Product {
     private String imageUrl = "https://static.boutique.orange.fr/media-cms/mediatheque/318x450-vue-1-175380.png";
 
     private String description ;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Collection<Rate> rates ;
 
 }

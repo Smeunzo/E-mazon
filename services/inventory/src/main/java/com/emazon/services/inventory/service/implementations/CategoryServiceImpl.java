@@ -1,16 +1,16 @@
-package com.emazon.services.inventory.service;
+package com.emazon.services.inventory.service.implementations;
 
 import com.emazon.services.inventory.dao.CategoryRepository;
 import com.emazon.services.inventory.entity.Category;
 import com.emazon.services.inventory.entity.Product;
 import com.emazon.services.inventory.exception.AlreadyExistException;
+import com.emazon.services.inventory.service.interfaces.CategoryService;
 import com.emazon.services.inventory.util.UtilService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 @Validated
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository ;
 

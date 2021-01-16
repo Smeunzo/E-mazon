@@ -1,8 +1,9 @@
-package com.emazon.services.inventory.service;
+package com.emazon.services.inventory.service.implementations;
 
 import com.emazon.services.inventory.dao.ProductRepository;
 import com.emazon.services.inventory.entity.Product;
 import com.emazon.services.inventory.exception.AlreadyExistException;
+import com.emazon.services.inventory.service.interfaces.ProductService;
 import com.emazon.services.inventory.util.UtilService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.Collection;
 @Service
 @AllArgsConstructor
 @Validated
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository ;
 

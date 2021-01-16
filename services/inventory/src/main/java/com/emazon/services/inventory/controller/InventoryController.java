@@ -2,8 +2,9 @@ package com.emazon.services.inventory.controller;
 
 import com.emazon.services.inventory.entity.Category;
 import com.emazon.services.inventory.entity.Product;
-import com.emazon.services.inventory.service.CategoryService;
-import com.emazon.services.inventory.service.ProductService;
+import com.emazon.services.inventory.entity.Rate;
+import com.emazon.services.inventory.service.interfaces.CategoryService;
+import com.emazon.services.inventory.service.interfaces.ProductService;
 import com.emazon.services.inventory.util.CategoryProductData;
 import lombok.AllArgsConstructor;
 
@@ -59,6 +60,9 @@ public class InventoryController {
         return productService.loadProductByName(productName);
     }
 
-   
+    @GetMapping(path = "/inventory/product/{name}/rates")
+    public Rate loadRates(@PathVariable(value = "name") String productName){
+
+    }
 }
 
