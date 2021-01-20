@@ -3,8 +3,8 @@ import com.emazon.services.inventory.dao.CategoryRepository;
 import com.emazon.services.inventory.entity.Category;
 import com.emazon.services.inventory.entity.Product;
 import com.emazon.services.inventory.exception.AlreadyExistException;
-import com.emazon.services.inventory.service.interfaces.CategoryService;
-import com.emazon.services.inventory.service.implementations.CategoryServiceImpl;
+import com.emazon.services.inventory.service.CategoryService;
+import com.emazon.services.inventory.service.CategoryServiceImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
 
 public class CategoryServiceTest {
 

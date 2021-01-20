@@ -2,8 +2,10 @@ package com.emazon.services.inventory;
 
 import com.emazon.services.inventory.entity.Category;
 import com.emazon.services.inventory.entity.Product;
-import com.emazon.services.inventory.service.interfaces.CategoryService;
-import com.emazon.services.inventory.service.interfaces.ProductService;
+import com.emazon.services.inventory.entity.Rate;
+import com.emazon.services.inventory.service.CategoryService;
+import com.emazon.services.inventory.service.ProductService;
+import com.emazon.services.inventory.service.RateService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +23,7 @@ public class InventoryApplication {
 	}
 
 	@Bean
-	CommandLineRunner start(ProductService productService, CategoryService categoryService){
+	CommandLineRunner start(ProductService productService, CategoryService categoryService, RateService rateService){
 		return args -> {
 
 			Category phones = new Category(null,"phones",new ArrayList<>(),"catégory des telephones");
@@ -57,6 +59,21 @@ public class InventoryApplication {
 
 			categoryService.linkProductsToCategory(phones,product1,product2,product3,product4,product5,product6,product7);
 			categoryService.linkProductsToCategory(accessoires,charger,memoire);
+
+			Rate rate1 = new Rate(null,"hakim",4,"pas mal ");
+			Rate rate2 = new Rate(null,"hamed",2,"bieeeen ");
+			Rate rate3 = new Rate(null,"faissoil",1,"de la merde ");
+			Rate rate4 = new Rate(null,"mehdi",5,"ok ");
+
+			rateService.addRate(rate1);
+			rateService.addRate(rate2);
+			rateService.addRate(rate3);
+			rateService.addRate(rate4);
+
+			productService.linkRateToProduct(product1,rate3);
+			productService.linkRateToProduct(product3,rate4);
+			productService.linkRateToProduct(product2,rate1);
+			productService.linkRateToProduct(product2,rate2);
 
 		};
 	}

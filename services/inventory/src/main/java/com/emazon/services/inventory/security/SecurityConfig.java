@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 configurer -> configurer.configurationSource(corsConfigurationSource())
         );
 
-        http.authorizeRequests().antMatchers("/h2-console/**",JWTUtil.PRODUCTS_ROUTE,JWTUtil.CATEGORIES_ROUTE,JWTUtil.CATEGORY_ROUTE).permitAll();//enable access to h2 without authentication
+        http.authorizeRequests().antMatchers("/h2-console/**",JWTUtil.PRODUCTS_ROUTE,JWTUtil.CATEGORIES_ROUTE,JWTUtil.CATEGORY_ROUTE,JWTUtil.RATE_ROUTE,JWTUtil.PRODUCT_ROUTE).permitAll();//enable access to h2 without authentication
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

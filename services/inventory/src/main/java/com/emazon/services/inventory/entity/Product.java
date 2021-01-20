@@ -1,11 +1,13 @@
 package com.emazon.services.inventory.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -44,7 +46,8 @@ public class Product {
 
     private String description ;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(cascade = CascadeType.ALL)
-    private Collection<Rate> rates ;
+    private Collection<Rate> rates = new ArrayList<>();
 
 }

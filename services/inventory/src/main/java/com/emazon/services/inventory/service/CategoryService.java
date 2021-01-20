@@ -1,4 +1,4 @@
-package com.emazon.services.inventory.service.interfaces;
+package com.emazon.services.inventory.service;
 
 import com.emazon.services.inventory.entity.Category;
 import com.emazon.services.inventory.entity.Product;

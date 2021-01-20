@@ -3,9 +3,11 @@ package com.emazon.services.inventory.controller;
 import com.emazon.services.inventory.entity.Category;
 import com.emazon.services.inventory.entity.Product;
 import com.emazon.services.inventory.entity.Rate;
-import com.emazon.services.inventory.service.interfaces.CategoryService;
-import com.emazon.services.inventory.service.interfaces.ProductService;
+import com.emazon.services.inventory.service.CategoryService;
+import com.emazon.services.inventory.service.ProductService;
+import com.emazon.services.inventory.service.RateService;
 import com.emazon.services.inventory.util.CategoryProductData;
+import com.emazon.services.inventory.util.ProductRateData;
 import lombok.AllArgsConstructor;
 
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -19,9 +21,20 @@ public class InventoryController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
+    private final RateService rateService ;
 
     @GetMapping(path = "/inventory/products")
     public Collection<Product> getProducts() {
+        return productService.loadProducts();
+    }
+
+    @GetMapping(path = "/inventory/productsId")
+    public Collection<Product> getProductsName() {
+        return productService.loadProducts();
+    }
+
+    @GetMapping(path = "/inventory/productsNames")
+    public Collection<Product> getProductsId() {
         return productService.loadProducts();
     }
 
@@ -55,14 +68,33 @@ public class InventoryController {
         return categoryService.linkProductToCategory(category,product);
     }
 
-    @GetMapping(path = "/inventory/product/{name}")
-    public Product loadProduct(@PathVariable(value = "name") String productName){
+    @GetMapping(path = "/inventory/product/name/{name}")
+    public Product loadProductByName(@PathVariable(value = "name") String productName){
         return productService.loadProductByName(productName);
     }
 
-    @GetMapping(path = "/inventory/product/{name}/rates")
-    public Rate loadRates(@PathVariable(value = "name") String productName){
-
+    @GetMapping(path = "/inventory/product/id/{name}")
+    public Product loadProductById(@PathVariable(value = "name") String productName){
+        return productService.loadProductByName(productName);
     }
+
+    @GetMapping(path = "/inventory/product/rates/{name}")
+    public Collection<Rate> loadRates(@PathVariable(value = "name") String productName){
+        System.out.println(productName);
+        Product product = productService.loadProductByName(productName);
+        return product.getRates();
+    }
+
+    @PostMapping(path = "/inventory/rate/addRate")
+    //@PostAuthorize("hasAuthority('USER')")
+    public Rate addRate(@RequestBody ProductRateData productRateData){
+        System.out.println(productRateData.getProductName());
+        Product product = productService.loadProductByName(productRateData.getProductName());
+        Rate rate = rateService.addRate(productRateData.getValue(), productRateData.getCommentary(), productRateData.getUsername());
+        productService.linkRateToProduct(product,rate);
+        return rate ;
+    }
+
+
 }
 

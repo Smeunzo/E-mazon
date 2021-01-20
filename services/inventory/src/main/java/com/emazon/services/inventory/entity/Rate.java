@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 @Entity
 @Data
@@ -19,10 +19,13 @@ public class Rate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
 
-    @Pattern(regexp = "[1-5]")
-    private int rateValue ;
+    @NotBlank
+    private String username ;
 
-    @Pattern(regexp = "[A-Za-z0-9]{1,60}")
+    @Min(1) @Max(5)
+    private Integer rateValue ;
+
+    //@Size(min = 8,max = 50)
     private String commentary ;
 
 }

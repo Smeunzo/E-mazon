@@ -1,10 +1,9 @@
-package com.emazon.services.inventory.service.implementations;
+package com.emazon.services.inventory.service;
 
 import com.emazon.services.inventory.dao.CategoryRepository;
 import com.emazon.services.inventory.entity.Category;
 import com.emazon.services.inventory.entity.Product;
 import com.emazon.services.inventory.exception.AlreadyExistException;
-import com.emazon.services.inventory.service.interfaces.CategoryService;
 import com.emazon.services.inventory.util.UtilService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
